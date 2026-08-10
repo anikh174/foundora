@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "https://foundora-server.vercel.app";
+const PROD_API_URL = "https://foundora-server.vercel.app";
+
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? PROD_API_URL
+    : process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000";
 
 export const api = axios.create({
   baseURL,
