@@ -81,11 +81,11 @@ export function AuthProvider({ children }) {
     return res.data.user;
   };
 
-  const googleSignIn = async (credential) => {
+  const googleSignIn = useCallback(async (credential) => {
     const res = await api.post("/api/auth/google", { credential });
     setStoredUser(res.data.user, res.data.token);
     return res.data.user;
-  };
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("fundora_token");
