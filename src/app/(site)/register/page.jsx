@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Eye, EyeOff, Lock, Mail, User, Camera, UserRound, Rocket } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, User, Camera, UserRound, Rocket, Sparkles } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
 import { Spinner } from "@/components/ui/Spinner";
@@ -81,21 +81,23 @@ export default function RegisterPage() {
 
   return (
     <AuthShell>
-      <div className="bg-white rounded-3xl shadow-card border border-slate-100 p-8 md:p-10 animate-fade-up">
-        <div className="flex flex-col items-center text-center">
-          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">Join Fundora</h1>
-          <p className="mt-1.5 text-sm text-slate-500">Create your free account and get started</p>
-        </div>
+      <div className="flex flex-col items-center text-center">
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold">
+          <Sparkles className="w-3.5 h-3.5" /> Start in under a minute
+        </span>
+        <h1 className="mt-4 text-[1.7rem] font-extrabold tracking-tight text-slate-900">Create your account</h1>
+        <p className="mt-1.5 text-sm text-slate-500">Join as a supporter or launch your first campaign</p>
+      </div>
 
-          <div className="mt-8">
-            <GoogleButton label="Sign up with Google" />
-          </div>
+      <div className="mt-8">
+        <GoogleButton label="Sign up with Google" />
+      </div>
 
-          <div className="my-6 flex items-center gap-3">
-            <div className="flex-1 h-px bg-slate-100" />
-            <span className="text-xs font-medium text-slate-400">or sign up with email</span>
-            <div className="flex-1 h-px bg-slate-100" />
-          </div>
+      <div className="my-6 flex items-center gap-3">
+        <div className="flex-1 h-px bg-slate-200" />
+        <span className="text-xs font-medium text-slate-400">or sign up with email</span>
+        <div className="flex-1 h-px bg-slate-200" />
+      </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex items-center justify-center">
@@ -209,7 +211,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 text-white text-sm font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-600/20 disabled:opacity-60"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 text-white text-sm font-bold hover:from-emerald-700 hover:to-emerald-600 active:scale-[0.99] transition-all shadow-lg shadow-emerald-600/25 disabled:opacity-60 disabled:active:scale-100"
             >
               {submitting ? <Spinner className="w-4 h-4" color="text-current" /> : "Create my account"}
             </button>
@@ -221,7 +223,6 @@ export default function RegisterPage() {
               Log in
             </Link>
           </p>
-        </div>
     </AuthShell>
   );
 }
