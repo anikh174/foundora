@@ -1,77 +1,82 @@
-# Fundora - Modern Crowdfunding Platform
+# Fundora — Crowdfunding Platform
 
-Fundora is a full-stack crowdfunding platform that lets anyone turn ideas into impact. Supporters back campaigns with platform credits, creators launch and manage fundraising campaigns, and admins keep the community safe through a review-driven moderation pipeline.
+Fundora is a full-stack crowdfunding platform that connects creators with supporters. Supporters back campaigns using platform credits, creators launch and manage fundraising campaigns, and admins moderate the platform through an approval-driven pipeline.
 
-The project is built with a **Next.js (App Router) client** and a **Node.js + Express + MongoDB API server**, with three role-based dashboards — **Supporter**, **Creator**, and **Admin**.
+The project is split into two repositories:
 
----
-
-## Live URL
-
-- **Live Site:** https://fundora.vercel.app
-- **API Base URL:** https://fundora-api.onrender.com
+| Repository | Stack | Description |
+| --- | --- | --- |
+| [`anikh174/foundora`](https://github.com/anikh174/foundora) | Next.js (App Router) | Client — web application |
+| [`anikh174/foundora-server`](https://github.com/anikh174/foundora-server) | Node.js + Express + MongoDB | API server |
 
 ---
 
-## Admin Credentials
+## Table of Contents
 
-**Email:** `admin@fundora.com`
-
-**Password:** `Admin@123`
-
-> Other seeded accounts (run `npm run seed` in `server/` to create them):
->
-> - Creators: `sarah@fundora.com`, `david@fundora.com`, `amina@fundora.com`, `james@fundora.com`, `elena@fundora.com` — password `Creator@123`
-> - Supporters: `priya@fundora.com`, `michael@fundora.com` — password `Supporter@123`
+- [Live Demo](#live-demo)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Demo Accounts](#demo-accounts)
+- [Deployment](#deployment)
+- [API Overview](#api-overview)
+- [License](#license)
 
 ---
 
-## Key Features
+## Live Demo
+
+- **Client:** <https://foundora-snowy.vercel.app>
+- **API:** <https://foundora-server.vercel.app>
+
+> Both applications are hosted on Vercel. The API exposes a REST interface under `/api`.
+
+---
+
+## Features
 
 ### Authentication & Authorization
 
-- Email & password registration and login
-- Google Sign-In (Google Identity Services + token verification)
-- JWT-protected APIs with bearer tokens
-- Role-based access control across all routes
-- Client-side route guards with role-aware redirects
+- Email and password registration and login
+- Google Sign-In (Google Identity Services with server-side token verification)
+- JWT-based sessions with bcrypt password hashing
+- Role-based access control (`supporter`, `creator`, `admin`) enforced on both the API and client routes
 
-### Supporter Features
+### Supporter
 
-- Browse, search, filter and sort approved campaigns
-- Campaign detail pages with live progress, deadline countdown and rewards
-- Contribute using platform credits (credits held until creator approval)
-- Purchase credits via Stripe checkout with instant wallet top-up
-- Track contribution status (pending / approved / rejected with refunds)
-- Full payment history and credit balance management
+- Browse, search, filter, and sort approved campaigns
+- Campaign detail pages with live funding progress and deadline
+- Contribute credits to campaigns — contributions stay pending until the creator approves
+- Purchase credits through Stripe Checkout with instant wallet top-up
+- Track contribution status (pending / approved / rejected) and view payment history
 - In-app notification center
 
-### Creator Features
+### Creator
 
-- Create campaigns with image upload via ImgBB
+- Create campaigns with cover-image upload (ImgBB)
 - Edit and delete campaigns (deletion refunds approved supporters)
-- Approve or reject contributions — credits settle into the wallet on approval
-- Withdraw earnings (20 credits = $1, minimum 200 credits) via Stripe, bKash, Rocket or Nagad
-- Payment history of every approved contribution
-- In-app notification center
+- Approve or reject contributions; credits settle into the wallet on approval
+- Request withdrawals — 20 credits = $1, minimum 200 credits — via Stripe, bKash, Rocket, or Nagad
+- Payment history and in-app notifications
 
-### Admin Features
+### Admin
 
 - Platform-wide analytics dashboard
-- Manage users, change roles, delete accounts
-- Review and approve / reject pending campaigns with feedback to creators
+- Manage users, change roles, and delete accounts
+- Review, approve, or reject pending campaigns with feedback
 - Suspend or delete campaigns (with automatic supporter refunds)
-- Approve / reject creator withdrawal requests
+- Approve or reject creator withdrawal requests
 - Resolve moderation reports on flagged campaigns
-- In-app notification center
 
-### UI & UX
+### UI / UX
 
-- Fully responsive, modern premium design with emerald brand identity
-- Landing page with hero slider, live stats, categories and how-it-works
-- Skeletons, spinners, empty states and toast notifications
+- Fully responsive, modern interface with an emerald brand identity
+- Landing page with hero slider, live stats, categories, and how-it-works
+- Skeleton loaders, spinners, empty states, and toast notifications
 - Pagination across all data tables
-- Custom 404, loading and unauthorized pages
+- Custom 404, loading, and unauthorized pages
 
 ---
 
@@ -79,37 +84,91 @@ The project is built with a **Next.js (App Router) client** and a **Node.js + Ex
 
 ### Frontend
 
-- Next.js (App Router) + React
-- Tailwind CSS v4 (custom `@theme` design tokens)
-- Axios (interceptor-based API client)
-- React Hot Toast
-- Lucide Icons
-- Swiper (hero carousel)
-- Framer Motion
+- **Next.js** (App Router) + **React 19**
+- **Tailwind CSS v4** (custom `@theme` design tokens)
+- **Axios** — API client with auth/error interceptors
+- **Swiper** — hero carousel
+- **React Hot Toast** — notifications
+- **Lucide Icons**
 
 ### Backend
 
-- Node.js + Express
-- MongoDB + Mongoose
-- JWT + bcryptjs
-- Google Auth Library
-- Stripe (Checkout Sessions)
-- ImgBB (image hosting)
-- CORS + Dotenv
+- **Node.js + Express**
+- **MongoDB + Mongoose**
+- **JWT + bcryptjs** — authentication
+- **Google Auth Library** — Google Sign-In verification
+- **Stripe** — Checkout Sessions for credit purchases
+- **ImgBB** — image hosting
 
 ---
 
-## Installation
+## Project Structure
 
-### 1. Client
+### Client (`foundora`)
+
+```
+src/
+├── app/                  # App Router pages & layouts
+│   ├── (site)/           # Public pages (home, campaigns, login, register)
+│   └── dashboard/        # Role-based dashboards (admin, creator, supporter)
+├── components/           # Reusable UI and feature components
+├── context/              # Auth context / provider
+└── lib/                  # API client, image upload, utilities
+```
+
+### Server (`foundora-server`)
+
+```
+├── config/               # Database connection
+├── controllers/          # Route handlers
+├── middleware/           # Auth, role checks, error handling
+├── models/               # Mongoose schemas
+├── routes/               # Express routers
+├── utils/                # Notifications, image upload
+├── seed.js               # Demo data seeder
+└── index.js              # App entry point
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- MongoDB (Atlas or local instance)
+- Stripe account (test keys)
+- ImgBB API key (for image uploads)
+- Google Cloud OAuth 2.0 credentials (for Google Sign-In)
+
+### 1. Run the server
 
 ```bash
-cd client
+git clone https://github.com/anikh174/foundora-server.git
+cd foundora-server
+npm install
+npm run seed   # optional: seed demo data
+npm run dev
+```
+
+The API runs on `http://localhost:5000`.
+
+### 2. Run the client
+
+```bash
+git clone https://github.com/anikh174/foundora.git
+cd foundora
 npm install
 npm run dev
 ```
 
-Create a `.env` file with:
+The client runs on `http://localhost:3000`.
+
+---
+
+## Environment Variables
+
+### Client (`.env`)
 
 ```env
 NEXT_PUBLIC_BASE_URL=http://localhost:5000
@@ -118,21 +177,15 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<stripe-publishable-key>
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=<google-client-id>
 ```
 
-### 2. Server
+> In production, `NEXT_PUBLIC_BASE_URL` resolves to the deployed API URL (`https://foundora-server.vercel.app`).
 
-```bash
-cd server
-npm install
-npm run seed   # seeds demo admin, creators, supporters and campaigns
-npm run dev
-```
-
-Create a `.env` file with:
+### Server (`.env`)
 
 ```env
 PORT=5000
 MONGODB_URI=<your-mongodb-uri>
 JWT_SECRET=<your-jwt-secret>
+JWT_EXPIRES_IN=7d
 CLIENT_URL=http://localhost:3000
 STRIPE_SECRET_KEY=<stripe-secret-key>
 STRIPE_PUBLISHABLE_KEY=<stripe-publishable-key>
@@ -140,30 +193,60 @@ IMGBB_API_KEY=<imgbb-api-key>
 GOOGLE_CLIENT_ID=<google-client-id>
 ```
 
-The client runs on `http://localhost:3000` and the API on `http://localhost:5000`.
+---
+
+## Demo Accounts
+
+After running `npm run seed`, the following accounts are available:
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Admin | `admin@fundora.com` | `Admin@123` |
+| Creator | `sarah@fundora.com` | `Creator@123` |
+| Creator | `david@fundora.com` | `Creator@123` |
+| Creator | `amina@fundora.com` | `Creator@123` |
+| Creator | `james@fundora.com` | `Creator@123` |
+| Creator | `elena@fundora.com` | `Creator@123` |
+| Supporter | `priya@fundora.com` | `Supporter@123` |
+| Supporter | `michael@fundora.com` | `Supporter@123` |
 
 ---
 
-## Core Functionalities
+## Deployment
 
-- Role-based authentication and authorization
-- Google login
-- Campaign creation with moderation workflow
-- Credit wallet with Stripe-funded top-ups
-- Contribution settlement (approve / reject / refund)
-- Credit-to-cash withdrawals (20 credits = $1)
-- Admin moderation (campaigns, withdrawals, reports, users)
-- Search, filter, sort and pagination
-- Real-time-style in-app notifications
-- Fully responsive design
+Both applications are designed to run on **Vercel**.
+
+### Client
+
+Import the `foundora` repository into Vercel. Next.js is detected automatically. Add the `NEXT_PUBLIC_*` variables listed above (with `NEXT_PUBLIC_BASE_URL` pointing to the deployed API).
+
+### Server
+
+The server includes a `vercel.json` configured to run the Express app as a serverless function. Add the server environment variables listed above, including:
+
+- `MONGODB_URI` — your MongoDB connection string
+- `CLIENT_URL` — the deployed client URL
 
 ---
 
-## Security
+## API Overview
 
-- JWT-protected APIs
-- Bcrypt password hashing
-- Server-side role verification middleware
-- Environment variables for all secrets
-- Protected client routes with role guards
-- Ownership checks on campaign and contribution operations
+The API exposes the following route groups under `/api`:
+
+| Routes | Description |
+| --- | --- |
+| `/api/auth` | Register, login, Google Sign-In, current user |
+| `/api/campaigns` | Public campaign listing, details, top campaigns, categories, stats |
+| `/api/contributions` | Supporter contributions and creator approval flows |
+| `/api/payments` | Stripe Checkout sessions and payment verification |
+| `/api/withdrawals` | Creator withdrawal requests |
+| `/api/notifications` | In-app notifications |
+| `/api/admin` | Admin analytics, moderation, and management |
+
+All protected routes require a `Bearer` token. Role-specific routes enforce the appropriate role server-side.
+
+---
+
+## License
+
+Released under the [MIT License](https://opensource.org/licenses/MIT).
