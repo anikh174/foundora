@@ -7,8 +7,8 @@ import { Eye, EyeOff, Lock, Mail, User, Camera, UserRound, Rocket } from "lucide
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
 import { Spinner } from "@/components/ui/Spinner";
-import { Logo } from "@/components/ui/Misc";
 import GoogleButton from "@/components/auth/GoogleButton";
+import AuthShell from "@/components/auth/AuthShell";
 import { uploadImage } from "@/lib/imgbb";
 
 export default function RegisterPage() {
@@ -80,14 +80,12 @@ export default function RegisterPage() {
     "w-full pl-11 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none text-sm transition bg-white";
 
   return (
-    <div className="min-h-[calc(100vh-64px)] bg-gradient-to-b from-emerald-50/60 to-slate-50 flex items-center justify-center px-4 py-14">
-      <div className="w-full max-w-lg">
-        <div className="bg-white rounded-3xl shadow-card border border-slate-100 p-8 md:p-10 animate-fade-up">
-          <div className="flex flex-col items-center text-center">
-            <Logo size={52} />
-            <h1 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900">Join Fundora</h1>
-            <p className="mt-1.5 text-sm text-slate-500">Create your free account and get started</p>
-          </div>
+    <AuthShell>
+      <div className="bg-white rounded-3xl shadow-card border border-slate-100 p-8 md:p-10 animate-fade-up">
+        <div className="flex flex-col items-center text-center">
+          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">Join Fundora</h1>
+          <p className="mt-1.5 text-sm text-slate-500">Create your free account and get started</p>
+        </div>
 
           <div className="mt-8">
             <GoogleButton label="Sign up with Google" />
@@ -224,7 +222,6 @@ export default function RegisterPage() {
             </Link>
           </p>
         </div>
-      </div>
-    </div>
+    </AuthShell>
   );
 }
