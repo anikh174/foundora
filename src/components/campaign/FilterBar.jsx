@@ -78,7 +78,7 @@ export default function FilterBar({ filters, onChange, onClear, resultCount }) {
         </button>
       </form>
 
-      <div className={`mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 ${open ? "block" : "hidden lg:grid"}`}>
+      <div className={`mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 ${open ? "grid" : "hidden lg:grid"}`}>
         <div>
           <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Category</label>
           <select

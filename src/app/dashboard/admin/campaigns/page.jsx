@@ -121,7 +121,70 @@ export default function ManageCampaigns() {
           description="No campaigns match the selected status."
         />
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
+        <>
+        <div className="lg:hidden space-y-3">
+          {data?.campaigns?.map((c) => (
+            <div key={c._id} className="bg-white rounded-2xl border border-slate-100 shadow-card p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl overflow-hidden relative shrink-0 bg-slate-100">
+                  {c.image && <Image src={c.image} alt={c.title} fill className="object-cover" unoptimized />}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-slate-900 truncate">{c.title}</p>
+                  <p className="text-xs text-slate-500">{c.category}</p>
+                </div>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2.5">
+                <div className="p-3 rounded-xl bg-slate-50">
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Raised</p>
+                  <p className="mt-0.5 font-bold text-slate-900">{formatCredits(c.raised)}</p>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50">
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Deadline</p>
+                  <p className="mt-0.5 text-xs font-semibold text-slate-600">{formatDate(c.deadline)}</p>
+                </div>
+              </div>
+              <div className="mt-3 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <StatusBadge status={c.status} />
+                  <span className="text-xs text-slate-500 truncate">{c.creatorName}</span>
+                </div>
+                <div className="flex items-center gap-1 shrink-0">
+                  <Link
+                    href={`/campaign/${c._id}`}
+                    className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-emerald-600 transition"
+                    title="View"
+                  >
+                    <Eye className="w-4 h-4" />
+                  </Link>
+                  {c.status !== "pending" && (
+                    <button
+                      onClick={() => handleToggleSuspend(c)}
+                      disabled={busyId === c._id}
+                      className="p-2 rounded-lg text-slate-500 hover:bg-amber-50 hover:text-amber-600 transition disabled:opacity-40"
+                      title={c.status === "suspended" ? "Reactivate" : "Suspend"}
+                    >
+                      {c.status === "suspended" ? (
+                        <PlayCircle className="w-4 h-4" />
+                      ) : (
+                        <PauseCircle className="w-4 h-4" />
+                      )}
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setDeleteTarget(c)}
+                    className="p-2 rounded-lg text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition"
+                    title="Delete"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="hidden lg:block bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -198,6 +261,7 @@ export default function ManageCampaigns() {
             </div>
           )}
         </div>
+        </>
       )}
 
       <ConfirmDialog

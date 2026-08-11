@@ -125,7 +125,51 @@ export default function ManageUsers() {
       ) : data?.users?.length === 0 ? (
         <EmptyState icon={<Users className="w-8 h-8" />} title="No users found" description="Try adjusting your search or filters." />
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
+        <>
+        <div className="lg:hidden space-y-3">
+          {data?.users?.map((u) => (
+            <div key={u._id} className="bg-white rounded-2xl border border-slate-100 shadow-card p-4">
+              <div className="flex items-center gap-3">
+                <Avatar src={u.image} name={u.name} className="w-10 h-10 text-xs" />
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-slate-900 truncate">{u.name}</p>
+                  <p className="text-xs text-slate-500 truncate">{u.email}</p>
+                </div>
+                <button
+                  onClick={() => setDeleteTarget(u)}
+                  className="p-2 rounded-lg text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition shrink-0"
+                  title="Delete user"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2.5">
+                <div className="p-3 rounded-xl bg-slate-50">
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Role</p>
+                  <select
+                    value={u.role}
+                    disabled={updatingId === u._id}
+                    onChange={(e) => handleRoleChange(u, e.target.value)}
+                    className="mt-1 w-full px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold capitalize bg-white outline-none focus:border-emerald-500 disabled:opacity-60"
+                  >
+                    {roles.map((r) => (
+                      <option key={r} value={r}>
+                        {r}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50">
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Credits</p>
+                  <p className="mt-1 font-bold text-slate-900">{formatCredits(u.credits)}</p>
+                </div>
+              </div>
+              <p className="mt-2.5 text-xs text-slate-500">Joined {formatDate(u.createdAt)}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="hidden lg:block bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -188,6 +232,7 @@ export default function ManageUsers() {
             </div>
           )}
         </div>
+        </>
       )}
 
       <ConfirmDialog

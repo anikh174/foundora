@@ -12,28 +12,32 @@ const testimonials = [
     role: "Campaign creator",
     quote:
       "Fundora made it possible to fund my community library. The credit system is easy to understand and the team approved my campaign within a day. We reached 110% of our goal!",
-    image: "https://picsum.photos/seed/aisha/200/200",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&h=200&q=80",
   },
   {
     name: "Daniel Reyes",
     role: "Supporter",
     quote:
       "I have backed seven campaigns on Fundora. The approval process for contributions gives me confidence that my credits are going to genuine causes. The notifications keep me in the loop every step of the way.",
-    image: "https://picsum.photos/seed/daniel/200/200",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&h=200&q=80",
   },
   {
     name: "Grace Okonkwo",
     role: "Campaign creator",
     quote:
       "As a first-time creator I was nervous, but the dashboard made everything obvious — approvals, contributions, withdrawals. I withdrew my funds to buy medical equipment with zero hassle.",
-    image: "https://picsum.photos/seed/grace/200/200",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
   },
   {
     name: "Liam O'Connor",
     role: "Supporter",
     quote:
       "Purchasing credits was smooth and instant. I love that I can support a clean water project one week and a street art festival the next, all from one wallet.",
-    image: "https://picsum.photos/seed/liam/200/200",
+    image:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&h=200&q=80",
   },
 ];
 

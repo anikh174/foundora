@@ -80,7 +80,34 @@ export default function MyContributions() {
           description="You have not backed any campaigns yet in this category. Explore campaigns to get started."
         />
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
+        <>
+        <div className="lg:hidden space-y-3">
+          {data?.contributions?.map((c) => (
+            <div key={c._id} className="bg-white rounded-2xl border border-slate-100 shadow-card p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl overflow-hidden relative shrink-0 bg-slate-100">
+                  {c.campaignImage && (
+                    <Image src={c.campaignImage} alt={c.campaignTitle} fill className="object-cover" unoptimized />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-slate-900 truncate">{c.campaignTitle}</p>
+                  <p className="text-xs text-slate-500 truncate">Creator: {c.creatorEmail}</p>
+                </div>
+                <StatusBadge status={c.status} />
+              </div>
+              <div className="mt-3 flex items-center justify-between">
+                <div>
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Amount</p>
+                  <p className="mt-0.5 font-bold text-slate-900">{formatCredits(c.amount)}</p>
+                </div>
+                <p className="text-xs text-slate-500">{formatDateTime(c.createdAt)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="hidden lg:block bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -126,6 +153,7 @@ export default function MyContributions() {
             </div>
           )}
         </div>
+        </>
       )}
     </div>
   );

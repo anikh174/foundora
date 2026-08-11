@@ -54,7 +54,35 @@ export default function PaymentHistory() {
           description="When you purchase credits, your transactions will appear here."
         />
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
+        <>
+        <div className="lg:hidden space-y-3">
+          {data?.payments?.map((p) => (
+            <div key={p._id} className="bg-white rounded-2xl border border-slate-100 shadow-card p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
+                  <CreditCard className="w-4 h-4 text-emerald-600" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-slate-900">Credit Pack</p>
+                  <p className="text-xs text-slate-500">{formatDateTime(p.createdAt)}</p>
+                </div>
+                <Badge className="bg-emerald-50 text-emerald-700 ring-emerald-200">Completed</Badge>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2.5">
+                <div className="p-3 rounded-xl bg-slate-50">
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Credits</p>
+                  <p className="mt-0.5 font-bold text-slate-900">{formatCredits(p.credits)}</p>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50">
+                  <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wide">Amount</p>
+                  <p className="mt-0.5 font-semibold text-slate-700">{formatMoney(p.amountUSD)}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="hidden lg:block bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -95,6 +123,7 @@ export default function PaymentHistory() {
             </div>
           )}
         </div>
+        </>
       )}
     </div>
   );

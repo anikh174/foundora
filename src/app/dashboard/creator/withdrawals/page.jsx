@@ -195,7 +195,29 @@ export default function Withdrawals() {
               description="When you request a withdrawal, you can track its status here."
             />
           ) : (
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
+            <div className="space-y-3 lg:hidden">
+              {withdrawals.map((w) => (
+                <div key={w._id} className="bg-white rounded-2xl border border-slate-100 shadow-card p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-bold text-slate-900">{formatCredits(w.amount)} credits</p>
+                      <p className="text-xs text-emerald-600 font-semibold">{formatMoney(w.usdAmount)}</p>
+                    </div>
+                    <StatusBadge status={w.status} />
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-500">
+                    <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold capitalize">
+                      {w.method}
+                    </span>
+                    <span className="truncate">{w.accountNumber}</span>
+                    <span>{formatDateTime(w.createdAt)}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {!loading && withdrawals?.length > 0 && (
+            <div className="hidden lg:block bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
