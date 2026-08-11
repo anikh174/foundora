@@ -14,7 +14,7 @@ const slides = [
     title: "Turn Ideas Into Impact.",
     subtitle:
       "Launch your campaign, rally a community, and fund the change you want to see in the world.",
-    image: "https://picsum.photos/seed/fundora-hero-1/1600/900",
+    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=80",
     accent: "emerald",
   },
   {
@@ -22,7 +22,7 @@ const slides = [
     title: "Support Causes You Believe In.",
     subtitle:
       "From education and healthcare to clean water and creative projects — every credit you give moves a real campaign forward.",
-    image: "https://picsum.photos/seed/fundora-hero-2/1600/900",
+    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1600&q=80",
     accent: "sky",
   },
   {
@@ -30,7 +30,7 @@ const slides = [
     title: "Your Community Is Your Launchpad.",
     subtitle:
       "Creators keep 100% of their funded goal. Transparent progress, fair rewards, and a platform built for trust.",
-    image: "https://picsum.photos/seed/fundora-hero-3/1600/900",
+    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1600&q=80",
     accent: "amber",
   },
 ];
