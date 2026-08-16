@@ -85,8 +85,8 @@ export default function RegisterPage() {
         <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold">
           <Sparkles className="w-3.5 h-3.5" /> Start in under a minute
         </span>
-        <h1 className="mt-4 text-[1.7rem] font-extrabold tracking-tight text-slate-900">Create your account</h1>
-        <p className="mt-1.5 text-sm text-slate-500">Join as a supporter or launch your first campaign</p>
+        <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-slate-900">Create your account</h1>
+        <p className="mt-1 text-sm text-slate-500">Join as a supporter or launch your first campaign</p>
       </div>
 
       <div className="mt-8">
