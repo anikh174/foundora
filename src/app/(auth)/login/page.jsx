@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
 import { Spinner } from "@/components/ui/Spinner";
 import GoogleButton from "@/components/auth/GoogleButton";
-import AuthSplitLayout from "@/components/auth/AuthSplitLayout";
+import AuthLayout from "@/components/auth/AuthLayout";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -46,7 +46,7 @@ export default function LoginPage() {
     "w-full rounded-xl border border-slate-200 bg-slate-50/60 py-3 pl-11 pr-11 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10";
 
   return (
-    <AuthSplitLayout>
+    <AuthLayout>
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Welcome back</h1>
         <p className="mt-2 text-sm text-slate-500">
@@ -150,6 +150,6 @@ export default function LoginPage() {
           Create an account
         </Link>
       </p>
-    </AuthSplitLayout>
+    </AuthLayout>
   );
 }
